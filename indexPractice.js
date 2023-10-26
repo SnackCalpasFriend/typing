@@ -119,19 +119,31 @@ const dictionary = {
   ぴゅ: ["pyu"],
   ぴょ: ["pyo"],
   ー: ["-"],
+  "・": ["/"],
+  ぁ: ["la"],
+  ぃ: ["li"],
+  ぅ: ["lu"],
+  ぇ: ["le"],
+  ぉ: ["lo"],
+  "。": ["."],
+  "、": [","],
 };
 let Q = [
   {
-    kanji: "茶摘み",
-    hira: "ちゃつみ",
+    kanji: "コンパスと分度器",
+    hira: "こんぱすとぶんどき",
   },
   {
-    kanji: "ピーナッツ",
-    hira: "ぴーなっつ",
+    kanji: "雑誌・ノンノ",
+    hira: "ざっし・のんの",
   },
   {
-    kanji: "じゃんけん",
-    hira: "じゃんけん",
+    kanji: "河童の川流れ",
+    hira: "かっぱのかわながれ",
+  },
+  {
+    kanji: "通り魔には気を付けて",
+    hira: "とおりまにはきをつけて",
   },
 ];
 
@@ -211,13 +223,14 @@ inputSample = sampleInput(quizIndex);
 let cList1 = [];
 let cList2 = [];
 let count = 0;
+
 document.addEventListener("keydown", function (e) {
   let key = e.key;
   count++;
   console.log(count);
   let selectIndex = 0;
   let romeIndexFlag = false;
-  // console.log(inputSample[hiraIndex][selectIndex][romeIndex]);
+
   if (cList1.length == 1) {
     if (inputSample[hiraIndex][cList1[0]][romeIndex] == key) {
       romeIndexFlag = true;
@@ -236,22 +249,22 @@ document.addEventListener("keydown", function (e) {
         selectIndex++;
       }
       cList2 = [];
-    } else if (cList2.length == 0) {
+    } else if (cList2.length == 0 && cList1.length > 0) {
       for (let i = 0; i < cList1.length; i++) {
         if (inputSample[hiraIndex][cList1[i]][romeIndex] == key) {
           romeIndexFlag = true;
           cList2.push(cList1[i]);
+          cList1 = [];
         }
       }
-      cList1 = [];
     } else {
       for (let i = 0; i < cList2.length; i++) {
         if (inputSample[hiraIndex][cList2[i]][romeIndex] == key) {
           romeIndexFlag = true;
           cList1.push(cList2[i]);
+          cList2 = [];
         }
       }
-      cList2 = [];
     }
   }
   console.log(inputSample[hiraIndex]);
@@ -291,7 +304,6 @@ document.addEventListener("keydown", function (e) {
       }
     }
   } else {
-    console.log("false: " + key);
     count = 0;
     $Input.innerHTML = keyInput + '<font color="red">' + key + "</font>";
   }
